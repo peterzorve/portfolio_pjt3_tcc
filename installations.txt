@@ -1,0 +1,1 @@
+pip install nltk numpy goose3 PyPDF2 pytesseract wordcloud matplotlib flask Werkzeug

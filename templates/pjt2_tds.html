@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="text-dark p-2  text-center text-sm-start"> 
+    <div class="container bg-light">
+        <h4 class="text-dark bold text-center font_type_cambria">  Text / Document Summarizer (TDS)    </h4>
+        <!-- <h4 class="text-dark bold text-center"> Upload a data (.csv or excel), enter the target you want to predict,  and start making prediction </h4> -->
+        <p class="text-center font_type_courier"> One of the  <span class="text-warning bold"> most difficult tasks in research is 
+            reading and reviewing </span> long list of published scientific papers. This task can be daunting as readers spend many hours reading most papers only           
+        </p> 
+
+    </div>
+</section>
+
+
+
+    <section  class="text-light p-1  text-center text-sm-start">
+        <div class="container bg-primary-add border_line_libraries_con">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md">  
+                    
+                    <form action="/" method="POST", enctype="multipart/form-data">
+                        <div class="container  p-1-">
+
+                            <div class="row align-items-start p-1 g-1 column_gab">
+                                <div class="col-5  bg-primary-add text-dark font_type_courier align_right">   Enter or Paste a URL link here      </div> 
+                                <div class="col-6  bg-primary-add text-dark">   <input type="text" class="form-control font_type_courier"  placeholder="url-link" name="url_link">  </div> 
+                            </div>
+
+                            <div class="row align-items-start p-1 g-1 column_gab">
+                                <div class="col-5  bg-primary-add text-dark font_type_courier align_right">   Upload File (.pdf .png .jpg .jpeg .gif )      </div> 
+                                <div class="col-6  bg-primary-add text-dark">     <input type="file" class="form-control font_type_courier"   placeholder="Document" name="pdf_file">  </div> 
+                            </div>
+
+                            <div class="row align-items-start p-1 g-1 column_gab">
+                                <div class="col-5  bg-primary-add text-dark font_type_courier align_right">   Type or Paste document here     </div>  
+                                <div class="col-6  bg-primary-add text-dark">     <textarea class="form-control font_type_courier"  placeholder="Type or paste document here" name="typed_file"></textarea>    </div> 
+                            </div>
+
+                            <div class="row align-items-start p-1 g-1 column_gab">
+                                <div class="col-5  bg-primary-add text-dark font_type_courier align_right">   Summary Percentage    </div> 
+                                <div class="col-6  bg-primary-add text-dark">         <input type="number" class="form-control"  placeholder="1 - 100" name="percentage">  </div> 
+                            </div>   
+                            
+                            <div class="row align-items-start p-1 g-1 column_gab">
+                                <div class="col-5  bg-primary-add text-dark font_type_courier align_right">       </div> 
+                                <div class="col-6  bg-primary-add text-dark">     <button type="submit" class="btn btn-warning font_type_courier "> Submit </button>     </div> 
+                            </div>  
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% if original_text_ | length > 0 %} 
+
+    <section id="questions" class="text-dark p-4  text-center text-sm-start">
+        <div class="container bg-light">
+            <h4 class="text text-danger p-2 font_type_cambria">  Results  </h4>
+            <div class="accordion accordion-flush" id="questions">
+
+                <!-- 1st Original Text -->
+
+                <div class="accordion-item">
+                    <h5 class="accordion-header" >
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question-one">
+                            <h5 class="text-primary font_type_courier"> Original Text</h5>  
+                        </button>
+                    </h5>   
+                    <div id="question-one"  class="accordion-collapse collapse"  aria-labelledby="flush-headingOne" data-bs-parent="#questions">
+                        <div class="accordion-body text-warning bg-dark">  {{ original_text_ }}  </div>
+                    </div>
+                </div>
+
+                <!-- 3nd Summary by Frequency Count  -->
+
+                <div class="accordion-item"> 
+                    <h5 class="accordion-header" >
+                        <button class="accordion-button collapsed"  type="button"  data-bs-toggle="collapse" data-bs-target="#question-six">
+                            <h5 class="text-primary font_type_courier"> View WordCloud Image  </h5>
+                        </button>
+                    </h5>
+                    <div id="question-six"  class="accordion-collapse collapse"  aria-labelledby="flush-headingOne"  data-bs-parent="#questions">
+                        <div>
+                            <img class="img-fluid" src='static/wordcloud.png?{{time_}}' alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item"> 
+                    <h5 class="accordion-header" >
+                        <button class="accordion-button collapsed"  type="button" data-bs-toggle="collapse" data-bs-target="#question-two">
+                            <h5 class="text-primary font_type_courier"> Summary Using Frequency Count </h5>
+                        </button>
+                    </h5>
+                    <div id="question-two"  class="accordion-collapse collapse"  aria-labelledby="flush-headingOne" data-bs-parent="#questions">
+                        <div class="accordion-body text-light bg-primary">  {{ summary_freq }} </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item"> 
+                    <h5 class="accordion-header" >
+                        <button class="accordion-button collapsed"  type="button" data-bs-toggle="collapse" data-bs-target="#question-three">
+                            <h5 class="text-primary font_type_courier"> Summary Using Luhn Algorithm </h5>
+                        </button>
+                    </h5>
+                    <div id="question-three"  class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#questions">
+                        <div class="accordion-body text-light bg-primary">  {{ summary_luhn }}   </div>
+                    </div>
+                </div>
+
+              </div>
+        </div>
+    </section>
+
+{% endif %}
+
+
+{% endblock %}
+
+
