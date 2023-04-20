@@ -2,7 +2,7 @@ import re
 import nltk  
 import heapq 
 import string 
-import numpy as np
+# import numpy as np
 # import networkx as nx 
 from goose3 import Goose 
 from nltk.cluster.util import cosine_distance
